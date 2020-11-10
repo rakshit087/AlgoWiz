@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       started: false,
-      frameRate: 0,
-      arraySize: 0
+      frameRate: 1,
+      arraySize: 5
     };
   },
   methods: {
@@ -69,6 +69,7 @@ export default {
           }
           return arr;
         }
+        
         function displayBars() {
           for (let k = 0; k < values.length; k++) {
             if (!isSortedBool) s.fill("#E6DB74");

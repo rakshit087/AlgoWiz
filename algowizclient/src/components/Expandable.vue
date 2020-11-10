@@ -15,7 +15,7 @@
         :key="index"
         class="expandableContent"
       >
-        <button @click="routeIt(name)">{{ name }}</button>
+        <button type="button" @click="routeIt(name)">{{ name }}</button>
       </div>
     </template>
   </div>
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    routeIt(name) {
+     routeIt(name) {
       var nameClean = "";
       for (var i of name) {
         if (i != " ") {

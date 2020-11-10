@@ -38,68 +38,72 @@ export default {
   data() {
     return {
       started: false,
-      frameRate: 0,
-      arraySize: 0
+      frameRate: 5,
+      arraySize: 20
     };
   },
   methods: {
     start: async function() {
       let frameRate = this.frameRate;
       let arraySize = this.arraySize;
-      console.log(frameRate);
       let values = new Array(parseInt(arraySize, 10));
+
       function sketch(s) {
         let maxBarLength;
         let barWidth;
         let w = (70 * s.windowWidth) / 100;
         let h = (90 * s.windowHeight) / 100;
-        maxBarLength = h - 50;
-        barWidth = w / values.length;
-        for (let i = 0; i < parseInt(arraySize, 10); i++) {
-          values[i] = Math.floor(Math.random() * Math.floor(maxBarLength));
-        }
-        let attempts = 0;
-        let isSortedBool = false;
-        function shuffle(arr) {
-          for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-          }
-          return arr;
-        }
-        function displayBars() {
-          for (let k = 0; k < values.length; k++) {
-            if (!isSortedBool) s.fill("#E6DB74");
-            else s.fill("#a6e22e");
-            s.rect(k * barWidth, h - values[k], barWidth, values[k]);
-          }
-          s.textSize(20);
-          s.fill("white");
-          s.text("Attempts: " + attempts, 20, 20);
-        }
-        function isSorted() {
-          for (let i = 1; i < values.length; i++) {
-            if (values[i - 1] > values[i]) {
-              return false;
-            }
-          }
-          return true;
-        }
         s.setup = function() {
           s.createCanvas(w, h);
+          maxBarLength = h - 50;
+          barWidth = w / values.length;
+          for (let i = 0; i < parseInt(arraySize, 10); i++) {
+            values[i] = Math.floor(Math.random() * Math.floor(maxBarLength));
+          }
         };
+        // let comparisons = 0;
+        let i = 0;
+        let j = 0;
         s.draw = function() {
           s.background("#1e1f1c");
           s.noStroke();
           s.frameRate(parseInt(frameRate, 10));
-          values = shuffle(values);
-          attempts++;
-          if (isSorted()) {
-            isSortedBool = true;
+          //display all the bars
+
+          if (i < values.length) {
+            for (j = 0; j < values.length - i - 1; j++) {
+              
+              let a = values[j];
+              let b = values[j + 1];
+              if (a > b) {
+                // comparisons++;
+                swap(values, j, j + 1);
+              }
+            }
+          } else {
+            console.log("finished");
             s.noLoop();
           }
+          s.clear();
           displayBars();
+          i++;
         };
+        function swap(arr, a, b) {
+          let temp = arr[a];
+          arr[a] = arr[b];
+          arr[b] = temp;
+        }
+
+        function displayBars() {
+          for (let k = 0; k < values.length; k++) {
+            if (values.length - k <= i) {
+              s.fill("#a6e22e");
+            }else {
+              s.fill("#E6DB74");
+            }
+            s.rect(k * barWidth, h - values[k], barWidth, values[k]);
+          }
+        }
       }
       await new P5(sketch, "canvas");
       this.started = true;

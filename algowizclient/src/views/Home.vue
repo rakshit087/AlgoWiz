@@ -34,15 +34,12 @@ export default {
         "හෙල්ලෝ වොර්ල්ඩ්",
         "ಹಲೋ ವರ್ಲ್ಡ್", //Kannada
         "ഹലോ വേൾഡ്", //Malyalam
-        "Χελλο Ωορλδ", //Greek
-        "こんにちは世界", //Japanese
-        "Привет мир" //Russian
       ],
       selected: ""
     };
   },
   async mounted() {
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 8; i++) {
       var selected = this.keywords[i];
       for (let c of selected) {
         this.selected = this.selected + c;

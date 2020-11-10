@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Algorithm :algoName="name" />
+    <Algorithm :algoName="name" :key="name"/>
   </div>
 </template>
 
