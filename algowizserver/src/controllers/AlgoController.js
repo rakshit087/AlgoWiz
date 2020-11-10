@@ -2,7 +2,7 @@ const models = require("../models");
 module.exports = {
   async sendAlgoInfo(req,res) {
     Category = models.Category
-    await Category.find({ 'algos.approved': true },function (err, result) {
+    await Category.find({algos: {$elemMatch: {approved:true}}},function (err, result) {
       if (err) {
         res.status(500).send({
           message: "Internal Server Error",

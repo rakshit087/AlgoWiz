@@ -36,7 +36,9 @@
         <p v-if="isSaving">{{ file.name }}</p>
       </div>
       <button type="button" class="dBtn" @click="handleUpload()">Upload</button>
-      <button class="dBtn purpleBG" type="reset" @click="logout()">Log Out</button>
+      <button class="dBtn purpleBG" type="reset" @click="logout()">
+        Log Out
+      </button>
     </form>
   </div>
 </template>
@@ -62,7 +64,7 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     async handleUpload() {
-      const response = UploadService.upload(this.file);
+      const response = await UploadService.upload(this.file);
       if (response.data.message == "Uploaded") {
         const response = await AlgoService.updateAlgoInfo({
           algo: this.algoName,
@@ -77,7 +79,7 @@ export default {
     },
     logout() {
       localStorage.setItem("token", 0);
-      this.$router.push('/upload');
+      this.$router.push("/authenticate");
     }
   }
 };

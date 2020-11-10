@@ -18,14 +18,14 @@ const routes = [
   {
     path: "/authenticate",
     name: "authenticate",
-    component: Authenticate,
+    component: Authenticate
   },
   {
     path: "/upload",
     name: "upload",
     component: Upload,
     meta: {
-      requiresAuth : true
+      requiresAuth: true
     }
   }
 ];
@@ -37,14 +37,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.getItem("token")==0) {
+    if (localStorage.getItem("token") == 0) {
       next({
-        path: "/authenticate",
+        path: "/authenticate"
       });
-    }else{
-      next()
+    } else {
+      next();
     }
-  }else{
+  } else {
     next();
   }
 });

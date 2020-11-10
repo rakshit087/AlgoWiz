@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 export default createStore({
   state: {
-    algos: {},
+    algos: {}
   },
   mutations: {
     saveAlgorithmInfo: function(state, algos) {
@@ -9,6 +9,7 @@ export default createStore({
       for (var cat of algos) {
         state.algos[cat["category"]] = new Array();
         for (var name of cat["algos"]) {
+          if(name["approved"]==true)
           state.algos[cat["category"]].push(name["name"]);
         }
       }
