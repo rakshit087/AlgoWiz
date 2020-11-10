@@ -36,6 +36,7 @@
         <p v-if="isSaving">{{ file.name }}</p>
       </div>
       <button type="button" class="dBtn" @click="handleUpload()">Upload</button>
+      <button class="dBtn purpleBG" type="reset" @click="logout()">Log Out</button>
     </form>
   </div>
 </template>
@@ -73,6 +74,10 @@ export default {
       }
       this.isSaving = false;
       this.isInitial = true;
+    },
+    logout() {
+      localStorage.setItem("token", 0);
+      this.$router.push('/upload');
     }
   }
 };
@@ -84,18 +89,7 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70%;
-    input {
-      margin: 0.7rem;
-    }
-    button {
-      margin-top: 1rem;
-    }
-  }
+
   .dropbox {
     display: flex;
     justify-content: center;

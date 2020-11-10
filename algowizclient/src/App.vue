@@ -35,6 +35,19 @@ export default {
   width: 100vw;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  input {
+    margin: 0.7rem;
+  }
+  button {
+    margin-top: 1rem;
+  }
+}
+
 .container {
   display: flex;
   height: 100%;

@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 export default createStore({
   state: {
-    algos: {}
+    algos: {},
   },
   mutations: {
     saveAlgorithmInfo: function(state, algos) {

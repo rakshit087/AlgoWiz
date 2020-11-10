@@ -14,14 +14,14 @@
       <input
         v-if="!this.started"
         class="dInput"
-        type="number"
+        type="text"
         placeholder="Array Size"
         v-model="arraySize"
       />
       <input
         v-if="!this.started"
         class="dInput"
-        type="number"
+        type="text"
         placeholder="Frame Rate"
         v-model="frameRate"
       />
@@ -40,21 +40,16 @@ export default {
   data() {
     return {
       started: false,
-      frameRate: {
-        type: Number,
-        default: 5
-      },
-      arraySize: {
-        type: Number,
-        default:5
-      }
+      frameRate: 0,
+      arraySize: 0
     };
   },
   methods: {
     start: async function() {
       let frameRate = this.frameRate;
       let arraySize = this.arraySize;
-      let values = new Array(arraySize);
+      console.log(frameRate);
+      let values = new Array(parseInt(arraySize, 10));
       function sketch(s) {
         let maxBarLength;
         let barWidth;
@@ -62,7 +57,7 @@ export default {
         let h = (90 * s.windowHeight) / 100;
         maxBarLength = h - 50;
         barWidth = w / values.length;
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < parseInt(arraySize, 10); i++) {
           values[i] = Math.floor(Math.random() * Math.floor(maxBarLength));
         }
         let attempts = 0;
@@ -75,11 +70,9 @@ export default {
           return arr;
         }
         function displayBars() {
-          console.log(values);
-          if (isSortedBool) s.fill("#A6E22E");
-          // else s.fill(255, 0, 0);
           for (let k = 0; k < values.length; k++) {
-            s.fill("#E6DB74");
+            if (!isSortedBool) s.fill("#E6DB74");
+            else s.fill("#a6e22e");
             s.rect(k * barWidth, h - values[k], barWidth, values[k]);
           }
           s.textSize(20);
@@ -100,11 +93,10 @@ export default {
         s.draw = function() {
           s.background("#1e1f1c");
           s.noStroke();
-          s.frameRate(frameRate);
+          s.frameRate(parseInt(frameRate, 10));
           values = shuffle(values);
           attempts++;
           if (isSorted()) {
-            console.log("finished");
             isSortedBool = true;
             s.noLoop();
           }

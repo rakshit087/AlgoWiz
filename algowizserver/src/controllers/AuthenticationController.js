@@ -11,7 +11,7 @@ module.exports = {
   register(req, res) {
     bcrypt.hash(req.body.password, 5, function (err, hash) {
       if (err) {
-        res.status(500).send({
+        res.send({
           error: err,
         });
       } else {
@@ -25,19 +25,18 @@ module.exports = {
         });
         newUser.save(function (err) {
           if (err) {
-            res.status(403).send({
-              error: "User Already Exists",
+            res.send({
+              message: "User Already Exists",
             });
           } else {
             User.findOne({ email: email }, function (err, user) {
               if (err) {
-                res.status(500).send({
-                  error: "Internal Server Error",
+                res.send({
+                  message: "Internal Server Error",
                 });
               } else {
                 res.send({
-                  user: newUser.toJSON(),
-                  token: jwtSignUser(newUser.toJSON()),
+                  message: "Sign Up Successfull, Please Login to Continue"
                 });
               }
             });
@@ -54,7 +53,7 @@ module.exports = {
         console.log(err);
       }
       if (!user) {
-        res.status(403).send({
+        res.send({
           error: "User not found",
         });
       } else {
@@ -68,7 +67,7 @@ module.exports = {
                 token: jwtSignUser(user.toJSON()),
               });
             } else {
-              res.status(403).send({
+              res.send({
                 error: "Invalid Password",
               });
             }

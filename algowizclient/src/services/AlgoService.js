@@ -5,6 +5,6 @@ export default {
     return Api().get("algo");
   },
   updateAlgoInfo(algoInfo) {
-    return Api().post("algo",algoInfo)
+    return Api().post("algo", algoInfo);
   }
 };
